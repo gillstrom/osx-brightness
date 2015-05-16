@@ -1,5 +1,5 @@
 # osx-brightness
-> Change brightness in OS X
+> Change or get brightness in OS X
 
 
 ## Install
@@ -14,12 +14,21 @@ $ npm install --save osx-brightness
 ```js
 var brightness = require('osx-brightness');
 
-brightness(5, function (err) {
+brightness.set(5, function (err) {
 	if (err) {
 		console.error(err);
 	}
 
 	//=> Brightness changed by 5 steps.
+});
+
+brightness.get(function (err, lvl) {
+	if (err) {
+		console.error(err);
+	}
+
+	console.log(lvl);
+	//=> 0.4375
 });
 ```
 
@@ -34,9 +43,12 @@ $ npm install --global osx-brightness
 $ osx-brightness --help
 
   Usage
+  	$ osx-brightness
   	$ osx-brightness <steps>
 
   Example
+  	$ osx-brightness
+  		=> 0.4375
   	$ osx-brightness 5
   	$ osx-brightness -5
 ```
