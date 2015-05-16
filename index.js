@@ -7,7 +7,7 @@ module.exports = function (steps, cb) {
 		throw new Error('Only OS X are supported');
 	}
 
-	if (typeof steps !== 'number') {
+	if (!steps || isNaN(steps) || typeof steps !== 'number') {
 		throw new Error('Argument has to be a number');
 	}
 
