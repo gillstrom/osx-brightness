@@ -5,7 +5,7 @@
 ## Install
 
 ```
-$ npm install --save wifi-password
+$ npm install --save osx-brightness
 ```
 
 
