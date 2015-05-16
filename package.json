@@ -1,6 +1,6 @@
 {
   "name": "osx-brightness",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Change brightness in OS X",
   "files": [
     "index.js",
