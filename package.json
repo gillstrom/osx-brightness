@@ -1,0 +1,33 @@
+{
+  "name": "osx-brightness",
+  "version": "1.0.0",
+  "description": "Change brightness in OS X",
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "bin": {
+    "osx-brightness": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gillstrom/osx-brightness.git"
+  },
+  "keywords": [
+    "brightness",
+    "darkness",
+    "osx",
+    "mac",
+    "apple",
+    "light"
+  ],
+  "author": "Andreas Gillström <andreasgillstrom@gmail.com> (http://hynden.se)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gillstrom/osx-brightness/issues"
+  },
+  "homepage": "https://github.com/gillstrom/osx-brightness",
+  "dependencies": {
+    "meow": "^3.1.0"
+  }
+}
