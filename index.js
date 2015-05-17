@@ -26,6 +26,7 @@ module.exports = {
 		execFile(cmd, args, function (err, stdout, stderr) {
 			if (err) {
 				cb(err);
+				return;
 			}
 
 			var search = grep('brightness');
