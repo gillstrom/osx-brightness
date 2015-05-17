@@ -1,5 +1,5 @@
 # osx-brightness
-> Change or get brightness in OS X
+> Get or set brightness in OS X
 
 
 ## Install

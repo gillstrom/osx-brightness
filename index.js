@@ -3,7 +3,6 @@
 var execFile = require('child_process').execFile;
 var stream = require('stream');
 var grep = require('grep1');
-var fs = require('fs');
 
 function streamText(text) {
     var s = new stream.Readable();
