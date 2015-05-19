@@ -35,7 +35,12 @@ module.exports = {
 			search.on('data', function (d) {
 				str += d;
 			}).on('end', function () {
-				var obj = JSON.parse(str.substring(str.indexOf('{'), str.lastIndexOf('}') + 1).replace(/=/g, ':'));
+				try {
+					var obj = JSON.parse(str.substring(str.indexOf('{'), str.lastIndexOf('}') + 1).replace(/=/g, ':'));
+				} catch (err) {
+					cb(err);
+					return;
+				}
 
 				cb(null, obj.brightness.value / obj.brightness.max);
 			}).on('error', function (err) {
