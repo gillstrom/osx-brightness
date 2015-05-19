@@ -38,6 +38,9 @@ module.exports = {
 				var obj = JSON.parse(str.substring(str.indexOf('{'), str.lastIndexOf('}') + 1).replace(/=/g, ':'));
 
 				cb(null, obj.brightness.value / obj.brightness.max);
+			}).on('error', function (err) {
+				cb(err);
+				return;
 			});
 
 			streamText(stdout).pipe(search);
