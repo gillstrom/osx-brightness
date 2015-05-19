@@ -6,6 +6,9 @@
     "index.js",
     "cli.js"
   ],
+  "scripts": {
+    "test": "node test.js"
+  },
   "bin": "cli.js",
   "repository": "gillstrom/osx-brightness",
   "keywords": [
@@ -22,5 +25,8 @@
   "dependencies": {
     "grep1": "^0.0.5",
     "meow": "^3.1.0"
+  },
+  "devDependencies": {
+    "ava": "0.0.4"
   }
 }
