@@ -3,6 +3,10 @@ var test = require('ava');
 var brightness = require('./');
 
 test('get level', function (t) {
+	if (process.env.CI) {
+		t.end();
+	}
+
 	t.plan(2);
 
 	brightness.get(function (err, lvl) {
@@ -12,6 +16,10 @@ test('get level', function (t) {
 });
 
 test('set level to 50%', function (t) {
+	if (process.env.CI) {
+		t.end();
+	}
+
 	t.plan(2);
 
 	brightness.set(50, function (err) {
