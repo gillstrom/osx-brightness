@@ -11,7 +11,10 @@ module.exports = {
 		var cmd = 'ioreg';
 		var args = [
 			'-c',
-			'AppleBacklightDisplay'
+			'AppleBacklightDisplay',
+			'-r',
+			'-d',
+			1
 		];
 
 		execFile(cmd, args, function (err, stdout, stderr) {
@@ -48,11 +51,15 @@ module.exports = {
 				return;
 			}
 
-			var current = (res * 16);
-			var steps = Math.round((val / 100) * 16) - current;
+			var current = (res * 64);
+			var steps = Math.round((val / 100) * 64) - current;
 
 			if (val > 0 && current + steps < 1) {
 				steps = steps + 1;
+			}
+
+			if (steps === 0) {
+				cb();
 			}
 
 			var cmd = 'osascript';
@@ -60,7 +67,7 @@ module.exports = {
 				"-e",
 				"tell application \"System Events\" to repeat " + Math.abs(steps) + " times",
 				"-e",
-				"key code " + (steps < 0 ? 107 : 113),
+				"key code " + (steps < 0 ? 107 : 113) + ' using {shift down, option down}',
 				"-e",
 				"end repeat"
 			];
