@@ -69,7 +69,7 @@ module.exports = {
 			var current = (res * 16);
 			var steps = Math.round((val / 100) * 16) - current;
 
-			if (val !== 0 && current + steps < 1) {
+			if (val > 0 && current + steps < 1) {
 				steps = steps + 1;
 			}
 
