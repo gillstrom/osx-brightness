@@ -1,6 +1,6 @@
 {
   "name": "osx-brightness",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Get or set screen brightness in OS X",
   "files": [
     "index.js",
