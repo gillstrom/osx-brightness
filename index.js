@@ -1,15 +1,6 @@
 'use strict';
 
 var execFile = require('child_process').execFile;
-var stream = require('stream');
-var grep = require('grep1');
-
-function streamText(text) {
-    var s = new stream.Readable();
-    s.push(text);
-    s.push(null);
-    return s;
-}
 
 module.exports = {
 	get: function (cb) {
@@ -29,26 +20,17 @@ module.exports = {
 				return;
 			}
 
-			var search = grep('brightness');
-			var str = '';
+			var reg = new RegExp('"brightness"={(.*?)}');
+			var str = reg.exec(stdout)[0];
 
-			search.on('data', function (d) {
-				str += d;
-			}).on('end', function () {
-				try {
-					var obj = JSON.parse(str.substring(str.indexOf('{'), str.lastIndexOf('}') + 1).replace(/=/g, ':'));
-				} catch (err) {
-					cb(err);
-					return;
-				}
-
-				cb(null, obj.brightness.value / obj.brightness.max);
-			}).on('error', function (err) {
+			try {
+				var b = JSON.parse(str.substring(str.indexOf('{'), str.lastIndexOf('}') + 1).replace(/=/g, ':'));
+			} catch (err) {
 				cb(err);
 				return;
-			});
+			}
 
-			streamText(stdout).pipe(search);
+			cb(null, b.value / b.max);
 		});
 	},
 	set: function (val, cb) {

@@ -1,5 +1,5 @@
 # osx-brightness [![Build Status](https://travis-ci.org/gillstrom/osx-brightness.svg?branch=master)](https://travis-ci.org/gillstrom/osx-brightness)
-> Get or set brightness in OS X
+> Get or set screen brightness in OS X
 
 
 ## Install
