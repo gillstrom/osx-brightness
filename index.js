@@ -56,7 +56,7 @@ module.exports = {
 			throw new Error('Only OS X are supported');
 		}
 
-		if (typeof val !== 'number' && typeof val !== 'string') {
+		if ((typeof val !== 'number' && typeof val !== 'string') || isNaN(parseInt(val, 10))) {
 			throw new Error('Expected a value');
 		}
 
