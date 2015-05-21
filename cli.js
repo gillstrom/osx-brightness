@@ -14,19 +14,19 @@ var cli = meow({
 var steps = cli.input[0] || process.argv.slice(2)[0];
 
 if (steps) {
-	brightness.set(steps, function (err) {
+	brightness.set(parseFloat(steps, 10), function (err) {
 		if (err) {
 			console.error(err.message);
 			process.exit(1);
 		}
 	});
 } else {
-	brightness.get(function (err, lvl) {
+	brightness.get(function (err, level) {
 		if (err) {
 			console.error(err.message);
 			process.exit(1);
 		}
 
-		console.log(lvl);
+		console.log(level);
 	});
 }

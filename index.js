@@ -41,38 +41,17 @@ module.exports = {
 			throw new Error('Only OS X are supported');
 		}
 
-		if ((typeof val !== 'number' && typeof val !== 'string') || isNaN(parseInt(val, 10))) {
-			throw new Error('Expected a value');
+		if (typeof val !== 'number' || isNaN(val) === 'true' || val < 0 || val > 1) {
+			throw new Error('Expected a value between 0 and 1');
 		}
 
-		this.get(function (err, res) {
+		execFile('./main', [val], {cwd: __dirname}, function (err, res) {
 			if (err) {
 				cb(err);
 				return;
 			}
 
-			var current = (res * 64);
-			var steps = Math.round((val / 100) * 64) - current;
-
-			if (val > 0 && current + steps < 1) {
-				steps = steps + 1;
-			}
-
-			if (steps === 0) {
-				cb();
-			}
-
-			var cmd = 'osascript';
-			var args = [
-				"-e",
-				"tell application \"System Events\" to repeat " + Math.abs(steps) + " times",
-				"-e",
-				"key code " + (steps < 0 ? 107 : 113) + ' using {shift down, option down}',
-				"-e",
-				"end repeat"
-			];
-
-			execFile(cmd, args, cb);
+			cb();
 		});
 	}
 };
