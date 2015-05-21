@@ -23,9 +23,11 @@ test('set level to 50%', function (t) {
 	t.plan(2);
 
 	brightness.set(50, function (err) {
-		brightness.get(function (err, lvl) {
-			t.assert(!err, err);
-			t.assert(lvl === 0.5, lvl);
-		});
+		setTimeout(function () {
+			brightness.get(function (err, lvl) {
+				t.assert(!err, err);
+				t.assert(lvl === 0.5, lvl);
+			});
+		}, 500);
 	});
 });
