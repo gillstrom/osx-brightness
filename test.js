@@ -1,6 +1,6 @@
 'use strict';
 var test = require('ava');
-var brightness = require('./');
+var osxBrightness = require('./');
 
 test('get level', function (t) {
 	if (process.env.CI) {
@@ -9,9 +9,9 @@ test('get level', function (t) {
 
 	t.plan(2);
 
-	brightness.get(function (err, lvl) {
+	osxBrightness.get(function (err, brightness) {
 		t.assert(!err, err);
-		t.assert(typeof lvl === 'number', lvl);
+		t.assert(typeof brightness === 'number', brightness);
 	});
 });
 
@@ -22,11 +22,11 @@ test('set level to 50%', function (t) {
 
 	t.plan(2);
 
-	brightness.set(0.5, function (err) {
+	osxBrightness.set(0.5, function (err) {
 		setTimeout(function () {
-			brightness.get(function (err, lvl) {
+			osxBrightness.get(function (err, brightness) {
 				t.assert(!err, err);
-				t.assert(lvl === 0.5, lvl);
+				t.assert(brightness === 0.5, brightness);
 			});
 		}, 500);
 	});

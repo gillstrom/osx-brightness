@@ -1,5 +1,4 @@
 'use strict';
-
 var execFile = require('child_process').execFile;
 
 module.exports.get = function (cb) {

@@ -12,13 +12,13 @@ $ npm install --save osx-brightness
 ## Usage
 
 ```js
-var brightness = require('osx-brightness');
+var osxBrightness = require('osx-brightness');
 
-brightness.set(0.75, function (err) {
+osxBrightness.set(0.75, function (err) {
 	console.log('Changed brightness to 75%');
 });
 
-brightness.get(function (err, brightness) {
+osxBrightness.get(function (err, brightness) {
 	console.log(brightness);
 	//=> 0.4375
 });
