@@ -7,7 +7,8 @@ var brightness = require('./');
 var cli = meow({
 	help: [
 		'Example',
-		'	$ osx-brightness 75'
+		'  $ osx-brightness',
+		'  $ osx-brightness 75'
 	].join('\n')
 });
 
@@ -21,12 +22,12 @@ if (steps) {
 		}
 	});
 } else {
-	brightness.get(function (err, level) {
+	brightness.get(function (err, brightness) {
 		if (err) {
 			console.error(err.message);
 			process.exit(1);
 		}
 
-		console.log(level);
+		console.log(brightness);
 	});
 }
