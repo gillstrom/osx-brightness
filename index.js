@@ -5,7 +5,7 @@ var execFile = require('child_process').execFile;
 module.exports = {
 	get: function (cb) {
 		if (process.platform !== 'darwin') {
-			throw new Error('Only OS X are supported');
+			throw new Error('Only OS X systems are supported');
 		}
 
 		var cmd = 'ioreg';
@@ -38,7 +38,7 @@ module.exports = {
 	},
 	set: function (val, cb) {
 		if (process.platform !== 'darwin') {
-			throw new Error('Only OS X are supported');
+			throw new Error('Only OS X systems are supported');
 		}
 
 		if (typeof val !== 'number' || isNaN(val) === 'true' || val < 0 || val > 1) {
