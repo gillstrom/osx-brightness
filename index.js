@@ -1,7 +1,27 @@
 'use strict';
 var execFile = require('child_process').execFile;
 
-module.exports.get = function (cb) {
+function getBrightness(str, cb) {
+	var reg = new RegExp('"brightness"={(.*?)}');
+	var str = reg.exec(str);
+	var b;
+
+	if (!str) {
+		cb(new Error('This display is not supported'));
+		return;
+	}
+
+	try {
+		b = JSON.parse(str[0].substring(str[0].indexOf('{'), str[0].lastIndexOf('}') + 1).replace(/=/g, ':'));
+	} catch (err) {
+		cb(err);
+		return;
+	}
+
+	cb(null, b.value / b.max);
+}
+
+exports.get = function (cb) {
 	if (process.platform !== 'darwin') {
 		throw new Error('Only OS X systems are supported');
 	}
@@ -21,22 +41,30 @@ module.exports.get = function (cb) {
 			return;
 		}
 
-		var reg = new RegExp('"brightness"={(.*?)}');
-		var str = reg.exec(stdout)[0];
-		var b;
-
-		try {
-			b = JSON.parse(str.substring(str.indexOf('{'), str.lastIndexOf('}') + 1).replace(/=/g, ':'));
-		} catch (err) {
-			cb(err);
+		if (stdout) {
+			getBrightness(stdout, cb);
 			return;
 		}
 
-		cb(null, b.value / b.max);
+		args[1] = 'AppleDisplay';
+
+		execFile(cmd, args, function (err, stdout) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			if (!stdout) {
+				cb(new Error('This display is not supported'));
+				return;
+			}
+
+			getBrightness(stdout, cb);
+		});
 	});
 };
 
-module.exports.set = function (val, cb) {
+exports.set = function (val, cb) {
 	if (process.platform !== 'darwin') {
 		throw new Error('Only OS X systems are supported');
 	}
