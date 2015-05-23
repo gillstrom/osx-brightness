@@ -2,32 +2,26 @@
 var test = require('ava');
 var osxBrightness = require('./');
 
-test('get level', function (t) {
-	if (process.env.CI) {
-		t.end();
-	}
+if (!process.env.CI) {
+	test('get level', function (t) {
+		t.plan(2);
 
-	t.plan(2);
-
-	osxBrightness.get(function (err, brightness) {
-		t.assert(!err, err);
-		t.assert(typeof brightness === 'number', brightness);
+		osxBrightness.get(function (err, brightness) {
+			t.assert(!err, err);
+			t.assert(typeof brightness === 'number');
+		});
 	});
-});
 
-test('set level to 50%', function (t) {
-	if (process.env.CI) {
-		t.end();
-	}
+	test('set level to 50%', function (t) {
+		t.plan(3);
 
-	t.plan(2);
+		osxBrightness.set(0.5, function (err) {
+			t.assert(!err, err);
 
-	osxBrightness.set(0.5, function (err) {
-		setTimeout(function () {
 			osxBrightness.get(function (err, brightness) {
 				t.assert(!err, err);
-				t.assert(brightness === 0.5, brightness);
+				t.assert(brightness === 0.5);
 			});
-		}, 500);
+		});
 	});
-});
+}
