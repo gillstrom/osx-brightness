@@ -27,17 +27,7 @@ osxBrightness.get(function (err, brightness) {
 
 ## CLI
 
-```
-$ npm install --global osx-brightness
-```
-
-```
-$ osx-brightness --help
-
-  Example
-    $ osx-brightness
-    $ osx-brightness 0.75
-```
+See the [brightness](https://github.com/kevva/brightness) CLI.
 
 
 ## License
