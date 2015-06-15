@@ -69,8 +69,12 @@ exports.set = function (val, cb) {
 		throw new Error('Only OS X systems are supported');
 	}
 
-	if (typeof val !== 'number' || isNaN(val) === 'true' || val < 0 || val > 1) {
-		throw new Error('Expected a value between 0 and 1');
+	if (typeof val !== 'number' || isNaN(val) === 'true') {
+		throw new TypeError('Expected a number');
+	}
+
+	if (val < 0 || val > 1) {
+		cb(new Error('Expected a value between 0 and 1'));
 	}
 
 	execFile('./main', [val], {cwd: __dirname}, function (err) {
