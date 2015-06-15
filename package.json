@@ -4,13 +4,11 @@
   "description": "Get or set screen brightness in OS X",
   "files": [
     "index.js",
-    "cli.js",
     "main"
   ],
   "scripts": {
     "test": "node test.js"
   },
-  "bin": "cli.js",
   "repository": "gillstrom/osx-brightness",
   "keywords": [
     "brightness",
