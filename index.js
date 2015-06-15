@@ -2,9 +2,10 @@
 var execFile = require('child_process').execFile;
 
 function getBrightness(str, cb) {
-	var reg = new RegExp('"brightness"={(.*?)}');
-	var str = reg.exec(str);
+	var regex = new RegExp('"brightness"={(.*?)}');
 	var b;
+
+	str = regex.exec(str);
 
 	if (!str) {
 		cb(new Error('This display is not supported'));
@@ -69,7 +70,7 @@ exports.set = function (val, cb) {
 		throw new Error('Only OS X systems are supported');
 	}
 
-	if (typeof val !== 'number' || isNaN(val) === 'true') {
+	if (typeof val !== 'number' || isNaN(val)) {
 		throw new TypeError('Expected a number');
 	}
 
