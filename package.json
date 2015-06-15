@@ -2,14 +2,22 @@
   "name": "osx-brightness",
   "version": "3.0.4",
   "description": "Get or set screen brightness in OS X",
-  "files": [
-    "index.js",
-    "main"
-  ],
+  "license": "MIT",
+  "repository": "gillstrom/osx-brightness",
+  "author": {
+    "name": "Andreas Gillström",
+    "email": "andreasgillstrom@gmail.com",
+    "url": "github.com/gillstrom"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "scripts": {
     "test": "node test.js"
   },
-  "repository": "gillstrom/osx-brightness",
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "brightness",
     "screen",
@@ -19,12 +27,10 @@
     "mac",
     "apple"
   ],
-  "author": "Andreas Gillström <andreasgillstrom@gmail.com> (http://github.com/gillstrom)",
-  "license": "MIT",
   "dependencies": {
     "meow": "^3.1.0"
   },
   "devDependencies": {
-    "ava": "0.0.4"
+    "ava": "^0.0.4"
   }
 }
