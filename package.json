@@ -16,7 +16,8 @@
     "test": "node test.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "main"
   ],
   "keywords": [
     "brightness",
