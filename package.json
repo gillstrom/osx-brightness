@@ -5,8 +5,8 @@
   "license": "MIT",
   "repository": "gillstrom/osx-brightness",
   "author": {
-    "name": "Andreas Gillström",
     "email": "andreasgillstrom@gmail.com",
+    "name": "Andreas Gillström",
     "url": "github.com/gillstrom"
   },
   "engines": {
@@ -20,18 +20,15 @@
     "main"
   ],
   "keywords": [
-    "brightness",
-    "screen",
-    "cli",
     "app",
-    "osx",
+    "apple",
+    "brightness",
+    "cli",
     "mac",
-    "apple"
+    "osx",
+    "screen"
   ],
-  "dependencies": {
-    "meow": "^3.1.0"
-  },
   "devDependencies": {
-    "ava": "^0.0.4"
+    "ava": "0.0.4"
   }
 }
