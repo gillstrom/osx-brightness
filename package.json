@@ -29,6 +29,9 @@
     "screen"
   ],
   "devDependencies": {
-    "ava": "0.0.4"
+    "ava": "^0.0.4"
+  },
+  "dependencies": {
+    "in-range": "^1.0.0"
   }
 }

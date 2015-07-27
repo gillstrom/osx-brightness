@@ -1,5 +1,6 @@
 'use strict';
 var execFile = require('child_process').execFile;
+var inRange = require('in-range');
 
 function getBrightness(str, cb) {
 	var regex = new RegExp('"brightness"={(.*?)}');
@@ -74,7 +75,7 @@ exports.set = function (val, cb) {
 		throw new TypeError('Expected a number');
 	}
 
-	if (val < 0 || val > 1) {
+	if (!inRange(val, 1)) {
 		cb(new Error('Expected a value between 0 and 1'));
 		return;
 	}
