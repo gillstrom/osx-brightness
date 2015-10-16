@@ -1,27 +1,24 @@
-'use strict';
-var test = require('ava');
-var osxBrightness = require('./');
+import test from 'ava';
+import fn from './';
 
-if (!process.env.CI) {
-	test('get level', function (t) {
-		t.plan(2);
+test('get level', t => {
+	t.plan(2);
 
-		osxBrightness.get(function (err, brightness) {
+	fn.get((err, res) => {
+		t.assert(!err, err);
+		t.assert(typeof res === 'number');
+	});
+});
+
+test('set level to 50%', t => {
+	t.plan(3);
+
+	fn.set(0.5, err => {
+		t.assert(!err, err);
+
+		fn.get((err, res) => {
 			t.assert(!err, err);
-			t.assert(typeof brightness === 'number');
+			t.assert(res === 0.5);
 		});
 	});
-
-	test('set level to 50%', function (t) {
-		t.plan(3);
-
-		osxBrightness.set(0.5, function (err) {
-			t.assert(!err, err);
-
-			osxBrightness.get(function (err, brightness) {
-				t.assert(!err, err);
-				t.assert(brightness === 0.5);
-			});
-		});
-	});
-}
+});
