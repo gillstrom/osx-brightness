@@ -33,6 +33,14 @@
     "xo": "*"
   },
   "dependencies": {
-    "in-range": "^1.0.0"
+    "in-range": "^1.0.0",
+    "json-promise": "^1.1.8",
+    "pify": "^2.2.0",
+    "pinkie-promise": "^1.0.0"
+  },
+  "xo": {
+    "ignore": [
+      "test.js"
+    ]
   }
 }
