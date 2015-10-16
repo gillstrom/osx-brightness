@@ -14,7 +14,7 @@ function getBrightness(str, cb) {
 	}
 
 	try {
-		b = JSON.parse(str[0].substring(str[0].indexOf('{'), str[0].lastIndexOf('}') + 1).replace(/=/g, ':'));
+		b = JSON.parse(str[0].substring(str[0].indexOf('{'), str[0].lastIndexOf('}') + 1).replace(/\=/g, ':'));
 	} catch (err) {
 		cb(err);
 		return;
