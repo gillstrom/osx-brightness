@@ -1,24 +1,14 @@
 import test from 'ava';
 import fn from './';
 
-test('get level', t => {
-	t.plan(2);
+test('get level', async t => {
+	const level = await fn.get();
 
-	fn.get((err, res) => {
-		t.assert(!err, err);
-		t.assert(typeof res === 'number');
-	});
+	t.assert(typeof level === 'number');
+	t.assert(level > 0 && level <= 1);
 });
 
-test('set level to 50%', t => {
-	t.plan(3);
-
-	fn.set(0.5, err => {
-		t.assert(!err, err);
-
-		fn.get((err, res) => {
-			t.assert(!err, err);
-			t.assert(res === 0.5);
-		});
-	});
+test('set level to 50%', async t => {
+	await fn.set(0.5);
+	t.assert(await fn.get() === 0.5);
 });

@@ -1,31 +1,28 @@
 'use strict';
 var execFile = require('child_process').execFile;
 var inRange = require('in-range');
+var Promise = require('pinkie-promise');
+var pify = require('pify');
+var parse = require('json-promise').parse;
 
-function getBrightness(str, cb) {
-	var regex = new RegExp('"brightness"={(.*?)}');
-	var b;
+function getBrightness(str) {
+	return new Promise(function (resolve, reject) {
+		var regex = new RegExp('"brightness"={(.*?)}');
+		str = regex.exec(str);
 
-	str = regex.exec(str);
+		if (!str) {
+			reject(new Error('This display is not supported'));
+		}
 
-	if (!str) {
-		cb(new Error('This display is not supported'));
-		return;
-	}
-
-	try {
-		b = JSON.parse(str[0].substring(str[0].indexOf('{'), str[0].lastIndexOf('}') + 1).replace(/\=/g, ':'));
-	} catch (err) {
-		cb(err);
-		return;
-	}
-
-	cb(null, b.value / b.max);
+		return parse(JSON.parse(str[0].substring(str[0].indexOf('{'), str[0].lastIndexOf('}') + 1).replace(/\=/g, ':'))).then(function (res) {
+			resolve(res.value / res.max);
+		});
+	});
 }
 
-exports.get = function (cb) {
+exports.get = function () {
 	if (process.platform !== 'darwin') {
-		throw new Error('Only OS X systems are supported');
+		return Promise.reject(new Error('Only OS X systems are supported'));
 	}
 
 	var cmd = 'ioreg';
@@ -37,55 +34,35 @@ exports.get = function (cb) {
 		1
 	];
 
-	execFile(cmd, args, function (err, stdout) {
-		if (err) {
-			cb(err);
-			return;
-		}
-
+	return pify(execFile, Promise)(cmd, args).then(function (stdout) {
 		if (stdout) {
-			getBrightness(stdout, cb);
-			return;
+			return getBrightness(stdout);
 		}
 
 		args[1] = 'AppleDisplay';
 
-		execFile(cmd, args, function (err, stdout) {
-			if (err) {
-				cb(err);
-				return;
-			}
-
+		return pify(execFile, Promise)(cmd, args).then(function (stdout) {
 			if (!stdout) {
-				cb(new Error('This display is not supported'));
-				return;
+				return Promise.reject(new Error('This display is not supported'));
 			}
 
-			getBrightness(stdout, cb);
+			return getBrightness(stdout);
 		});
 	});
 };
 
-exports.set = function (val, cb) {
+exports.set = function (val) {
 	if (process.platform !== 'darwin') {
-		throw new Error('Only OS X systems are supported');
+		return Promise.reject(new Error('Only OS X systems are supported'));
 	}
 
 	if (typeof val !== 'number' || isNaN(val)) {
-		throw new TypeError('Expected a number');
+		return Promise.reject(new TypeError('Expected a number'));
 	}
 
 	if (!inRange(val, 1)) {
-		cb(new Error('Expected a value between 0 and 1'));
-		return;
+		return Promise.reject(new Error('Expected a value between 0 and 1'));
 	}
 
-	execFile('./main', [val], {cwd: __dirname}, function (err) {
-		if (err) {
-			cb(err);
-			return;
-		}
-
-		cb();
-	});
+	return pify(execFile, Promise)('./main', [val], {cwd: __dirname});
 };
