@@ -42,12 +42,22 @@ exports.get = function () {
 		args[1] = 'AppleDisplay';
 
 		return pify(execFile, Promise)(cmd, args).then(function (stdout) {
-			if (!stdout) {
+			if (stdout) {
+				return getBrightness(stdout);
+			}
+			var execSync = require('child_process').execSync;
+			var m1Cmd = "/usr/libexec/corebrightnessdiag status-info | grep 'DisplayServicesBrightness '"
+			var result = execSync(m1Cmd)
+			if (!result) {
 				return Promise.reject(new Error('This display is not supported'));
 			}
-
-			return getBrightness(stdout);
+			var m1Reg = new RegExp('DisplayServicesBrightness = ".*?"')
+			var str = m1Reg.exec(result.toString())
+			str = JSON.parse(str[0].split("=").slice(-1)[0])
+			return str;
 		});
+
+
 	});
 };
 
